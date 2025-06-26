@@ -61,8 +61,7 @@ export default function Product({ product }) {
       setTickets(product?.tickets);
       setSchedule(product?.schedule);
 
-      localStorage.setItem("Description", product?.description);
-      localStorage.setItem("ShortDescription", product?.additionalNotes);
+     
     }
   }, [product]);
 
@@ -83,8 +82,8 @@ export default function Product({ product }) {
     const formData = new FormData();
     const payload = {
       title: e.target.title.value,
-      description: localStorage.getItem("Description") || "",
-      additionalNotes: localStorage.getItem("ShortDescription") || "",
+      description: e.target.description.value,
+      additionalNotes: e.target.additionalNotes.value,
       startDate: datePickers.startDate,
       endDate: datePickers.endDate,
       division: division,
@@ -220,7 +219,12 @@ export default function Product({ product }) {
 
               <div className="p-5 border bg-white rounded-md shadow-md w-full">
                 <h5 className="text-md font-bold mb-3">Product Description</h5>
-                <AddProductRichText preValue="" />
+                  <textarea
+                placeholder="Description"
+                name="description"
+                defaultValue={product?.description}
+                className="border p-2 flex-1 focus:outline-none w-full"
+              />
               </div>
 
               {/* Schedule Section */}
@@ -228,7 +232,12 @@ export default function Product({ product }) {
 
               <div className="p-5 border bg-white rounded-md shadow-md w-full">
                 <h5 className="text-md font-bold mb-3">Additional Notes</h5>
-                <AddProductShortDesRichText />
+                <textarea
+                  placeholder="Additional Notes"
+                  name="additionalNotes"
+                  defaultValue={product?.additionalNotes}
+                  className="border p-2 flex-1 focus:outline-none w-full"
+                />
               </div>
             </div>
 

@@ -42,16 +42,11 @@ export default function AddProductPage() {
   const user = useSelector((state) => state.user?.items || {});
 
   useEffect(() => {
-    localStorage.setItem("Description", "");
-    localStorage.setItem("ShortDescription", "");
-  }, []);
-  useEffect(() => {
     console.log("bannerFile state updated:", bannerFile);
   }, [bannerFile]);
 
   const router = useRouter();
   const fileInputRef = useRef(null);
-
 
   const addTicket = () => {
     setTickets([...tickets, { type: "", price: "", totalQty: "" }]);
@@ -62,8 +57,6 @@ export default function AddProductPage() {
     updated[index][field] = value;
     setTickets(updated);
   };
-
-
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
@@ -77,13 +70,10 @@ export default function AddProductPage() {
 
     // Basic fields
     formData.append("title", e.target.title.value);
-    formData.append("description", localStorage.getItem("Description") || "");
+    formData.append("description", e.target.description.value);
     formData.append("startDate", datePickers.startDate);
     formData.append("endDate", datePickers.endDate);
-    formData.append(
-      "additionalNotes",
-      localStorage.getItem("ShortDescription") || ""
-    );
+    formData.append("additionalNotes", e.target.additionalNotes.value);
     formData.append("venue", organization.venue);
     formData.append("organizer", "tata tata");
     formData.append("category", cat);
@@ -101,7 +91,7 @@ export default function AddProductPage() {
     // Venue Info
     formData.append("venueImage", organization.venueImage);
     formData.append("venueUrl", organization.venueUrl);
-    formData.append("division", division );
+    formData.append("division", division);
 
     // Files
     if (bannerFile) {
@@ -254,7 +244,12 @@ export default function AddProductPage() {
 
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
               <h5 className="text-md font-bold mb-3">Product Description</h5>
-              <AddProductRichText preValue="" />
+              {/* <AddProductRichText preValue="" /> */}
+              <textarea
+                placeholder="Description"
+                name="description"
+                className="border p-2 flex-1 focus:outline-none w-full"
+              />
             </div>
 
             {/* Schedule Section */}
@@ -262,12 +257,16 @@ export default function AddProductPage() {
 
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
               <h5 className="text-md font-bold mb-3">Additional Notes</h5>
-              <AddProductShortDesRichText />
+              {/* <AddProductShortDesRichText /> */}
+              <textarea
+                placeholder="Additional Notes"
+                name="additionalNotes"
+                className="border p-2 flex-1 focus:outline-none w-full"
+              />
             </div>
           </div>
 
           <div className="flex flex-col justify-end items-center w-full space-y-5">
-
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
               <h5 className="text-md font-bold mb-3">Date and Time</h5>
 
@@ -448,8 +447,6 @@ export default function AddProductPage() {
                 </div>
               </div>
             </div>
-
-          
           </div>
         </section>
       </form>

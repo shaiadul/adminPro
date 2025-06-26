@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "quill/dist/quill.snow.css";
 
@@ -7,6 +7,11 @@ const QuillEditor = dynamic(() => import("react-quill"), { ssr: false });
 export default function AddProductRichText({ preValue }) {
 const [content, setContent] = useState(() => localStorage.getItem("Description") || "");
 
+useEffect(() => {
+  if (preValue) {
+    setContent(preValue); 
+  }
+}, [preValue]);
 
   const quillModules = {
     toolbar: [
