@@ -13,7 +13,7 @@ export default function Page({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchApi(`/product/getProductById/${id}`, "GET");
+        const data = await fetchApi(`/events/getEventByIdHandler/${id}`, "GET");
         setData(data);
       } catch (error) {
         console.error("Error fetching product data:", error);

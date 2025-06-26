@@ -10,14 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../loading";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { removeImage } from "@/redux/slice/imagesSlice";
-import ImageUploadModal from "@/components/global/modal/ImageUploadModal ";
-import GalleryUploadModal from "@/components/global/modal/GalleryUploadModal";
-import {
-  removeAllGalleryImages,
-  removeGalleryImage,
-} from "@/redux/slice/gallerySlice";
-import { set } from "date-fns";
 import ScheduleSection from "@/components/dashboard/addproduct/ScheduleSection";
 
 export default function AddProductPage() {
@@ -60,18 +52,6 @@ export default function AddProductPage() {
   const router = useRouter();
   const fileInputRef = useRef(null);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result.split(",")[1];
-      setOrganization((prevOrganization) => ({
-        ...prevOrganization,
-        organizationImage: base64String,
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
 
   const addTicket = () => {
     setTickets([...tickets, { type: "", price: "", totalQty: "" }]);
@@ -83,124 +63,7 @@ export default function AddProductPage() {
     setTickets(updated);
   };
 
-  // const handleAddProduct = async (e) => {
-  //   e.preventDefault();
-  //   const productDescription = localStorage.getItem("Description") || "";
-  //   const productShortDescription =
-  //     localStorage.getItem("ShortDescription") || "";
 
-  //   const productData = {
-  //     title: e.target.title.value,
-  //     category: cat,
-  //     description: productDescription,
-  //     startDate: datePickers.startDate,
-  //     endDate: datePickers.endDate,
-  //     additionalNotes: productShortDescription,
-  //     venue: organization.venue,
-  //     tickets: tickets,
-  //     schedule: schedule,
-  //     organizationName: organization.organizationName,
-  //     organizationEmail: organization.organizationEmail,
-  //     organizationPhone: organization.organizationPhone,
-  //     organizationAboutUs: organization.organizationAboutUs,
-  //     banner: bannerFile,
-  //     venueImage: organization.venueImage,
-
-  //     // seo: {
-  //     //   productTitle:
-  //     //     titleInputValue ||
-  //     //     e.target.productName.value + " at Best Electronics",
-  //     //   prodDescription: descriptionInputValue,
-  //     //   productTags: tagValueArray,
-  //     //   productNotes: e.target.productNotes.value,
-  //     // },
-  //   };
-
-  //   console.log("Product Data:", productData);
-
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await fetchApi(
-  //       "/events/createEvents",
-  //       "POST",
-  //       productData
-  //     );
-
-  //     setIsLoading(false);
-
-  //     if (response) {
-  //       localStorage.removeItem("Description");
-  //       localStorage.removeItem("ShortDescription");
-  //       router.push("/dashboard/products");
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.log("Failed to add product:", errorData);
-  //     }
-  //   } catch (err) {
-  //     setIsLoading(false);
-  //     console.log("An error occurred:", err);
-  //   }
-  // };
-
-  // const handleAddProduct = async (e) => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData();
-
-  //   // Add text fields
-  //   formData.append("title", e.target.title.value);
-  //   formData.append("category", cat);
-
-  //   const productDescription = localStorage.getItem("Description") || "";
-  //   const productShortDescription =
-  //     localStorage.getItem("ShortDescription") || "";
-
-  //   formData.append("description", productDescription);
-  //   formData.append("additionalNotes", productShortDescription);
-
-  //   // Dates
-  //   formData.append("startDate", datePickers.startDate);
-  //   formData.append("endDate", datePickers.endDate);
-
-  //   // Organization data
-  //   formData.append("organizationName", organization.organizationName);
-  //   formData.append("organizationEmail", organization.organizationEmail);
-  //   formData.append("organizationPhone", organization.organizationPhone);
-  //   formData.append("organizationAboutUs", organization.organizationAboutUs);
-  //   formData.append("venue", organization.venue);
-
-  //   // Files
-  //   if (bannerFile) {
-  //     formData.append("banner", bannerFile);
-  //   } else {
-  //     console.log("No banner file selected.");
-  //   }
-
-  //   // Tickets and Schedule (make sure they are serialized properly)
-  //   formData.append("tickets", JSON.stringify(tickets));
-  //   formData.append("schedule", JSON.stringify(schedule));
-
-  //   setIsLoading(true);
-
-  //   console.log("event data", formData);
-  //   try {
-  //     const response = await fetchApi("/events/createEvents", "POST", formData);
-
-  //     setIsLoading(false);
-
-  //     if (response.ok) {
-  //       localStorage.removeItem("Description");
-  //       localStorage.removeItem("ShortDescription");
-  //       router.push("/dashboard/products");
-  //     } else {
-  //       const errorData = await response.json();
-  //       console.log("Failed to add product:", errorData);
-  //     }
-  //   } catch (err) {
-  //     setIsLoading(false);
-  //     console.error("An error occurred:", err);
-  //   }
-  // };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();

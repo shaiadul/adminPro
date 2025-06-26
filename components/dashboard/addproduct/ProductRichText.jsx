@@ -5,7 +5,8 @@ import "quill/dist/quill.snow.css";
 const QuillEditor = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function AddProductRichText({ preValue }) {
-  const [content, setContent] = useState("");
+const [content, setContent] = useState(() => localStorage.getItem("Description") || "");
+
 
   const quillModules = {
     toolbar: [
@@ -47,8 +48,7 @@ export default function AddProductRichText({ preValue }) {
       <div className="w-full flex items-center flex-col">
         <div className="h-full w-full">
           <QuillEditor
-            // value={content}
-            defaultValue={preValue + content || ""}
+            value={content}
             onChange={handleEditorChange}
             modules={quillModules}
             formats={quillFormats}
