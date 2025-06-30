@@ -392,7 +392,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
                 className="flex justify-center items-center px-2 py-1"
               >
                 <span className="text-xl font-semibold mr-1">+</span>{" "}
-                <span className="text-nowrap">Add Product</span>
+                <span className="text-nowrap">Add Event</span>
               </Link>
             </div>
           )}
