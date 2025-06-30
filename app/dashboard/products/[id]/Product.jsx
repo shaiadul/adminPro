@@ -60,8 +60,6 @@ export default function Product({ product }) {
       });
       setTickets(product?.tickets);
       setSchedule(product?.schedule);
-
-     
     }
   }, [product]);
 
@@ -72,6 +70,10 @@ export default function Product({ product }) {
   const updateTicket = (index, field, value) => {
     const updated = [...tickets];
     updated[index][field] = value;
+    setTickets(updated);
+  };
+  const removeTicket = (index) => {
+    const updated = tickets.filter((_, i) => i !== index);
     setTickets(updated);
   };
 
@@ -97,7 +99,6 @@ export default function Product({ product }) {
       venue: organization.venue,
       venueImage: organization.venueImage,
       venueUrl: organization.venueUrl,
-      
     };
     console.log("payload", payload);
     setIsLoading(true);
@@ -124,7 +125,7 @@ export default function Product({ product }) {
               type="submit"
               className="text-sm text-white bg-black rounded-md px-3 py-2"
             >
-              {isLoading ? "Updating Product..." : "Update Product"}
+              {isLoading ? "Updating Event..." : "Update Event"}
             </button>
           </section>
 
@@ -138,7 +139,7 @@ export default function Product({ product }) {
                       htmlFor="title"
                       className="text-sm font-semibold text-gray-600"
                     >
-                      Product title
+                      Event title
                     </label>
                     <input
                       type="text"
@@ -176,9 +177,13 @@ export default function Product({ product }) {
 
               {/* Tickets Section */}
               <div className="p-5 border bg-white rounded-md shadow-md w-full">
-                <h5 className="text-md font-bold mb-3">Ticket Information</h5>
+                <h5 className="text-md font-bold mb-4">Ticket Information</h5>
+
                 {tickets?.map((ticket, index) => (
-                  <div key={index} className="flex gap-4 mb-3">
+                  <div
+                    key={index}
+                    className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-4"
+                  >
                     <input
                       type="text"
                       placeholder="Type (e.g., General)"
@@ -186,7 +191,8 @@ export default function Product({ product }) {
                       onChange={(e) =>
                         updateTicket(index, "type", e.target.value)
                       }
-                      className="border p-2 flex-1 focus:outline-none"
+                      className="border p-2 rounded flex-1 focus:outline-none"
+                      required
                     />
                     <input
                       type="number"
@@ -195,7 +201,8 @@ export default function Product({ product }) {
                       onChange={(e) =>
                         updateTicket(index, "price", e.target.value)
                       }
-                      className="border p-2 flex-1 focus:outline-none"
+                      className="border p-2 rounded flex-1 focus:outline-none"
+                      required
                     />
                     <input
                       type="number"
@@ -204,27 +211,36 @@ export default function Product({ product }) {
                       onChange={(e) =>
                         updateTicket(index, "totalQty", e.target.value)
                       }
-                      className="border p-2 flex-1 focus:outline-none"
+                      className="border p-2 rounded flex-1 focus:outline-none"
+                      required
                     />
+                    <button
+                      type="button"
+                      onClick={() => removeTicket(index)}
+                      className="text-red-500 text-sm font-medium hover:underline"
+                    >
+                      Remove
+                    </button>
                   </div>
                 ))}
+
                 <button
                   type="button"
                   onClick={addTicket}
-                  className="mt-2 text-primary underline"
+                  className="mt-2 text-teal-600 font-medium hover:underline"
                 >
-                  + Add Another Ticket Type
+                  Add Another Ticket Type
                 </button>
               </div>
 
               <div className="p-5 border bg-white rounded-md shadow-md w-full">
-                <h5 className="text-md font-bold mb-3">Product Description</h5>
-                  <textarea
-                placeholder="Description"
-                name="description"
-                defaultValue={product?.description}
-                className="border p-2 flex-1 focus:outline-none w-full"
-              />
+                <h5 className="text-md font-bold mb-3">Event Description</h5>
+                <textarea
+                  placeholder="Description"
+                  name="description"
+                  defaultValue={product?.description}
+                  className="border p-2 flex-1 focus:outline-none w-full"
+                />
               </div>
 
               {/* Schedule Section */}
@@ -283,7 +299,7 @@ export default function Product({ product }) {
               </div>
 
               <div className="p-5 border bg-white rounded-md shadow-md w-full">
-                <h5 className="text-md font-bold mb-3">Product Categories</h5>
+                <h5 className="text-md font-bold mb-3">Event Categories</h5>
 
                 <input
                   type="text"

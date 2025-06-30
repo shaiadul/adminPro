@@ -249,7 +249,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
 
       for (const itemId of selectedItems) {
         const response = await fetchApi(
-          `/product/deleteProduct/${itemId}`,
+          `/events/deleteEvent/${itemId}`,
           "DELETE"
         );
 
@@ -284,85 +284,6 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
     }
   };
 
-  const handleDuplicateProduct = async (product) => {
-    try {
-      const productNameRegex = new RegExp(
-        `^${product.productName}( copy( \\d+)?)?$`
-      );
-      const existingProducts = currentData.filter((p) =>
-        productNameRegex.test(p.productName)
-      );
-
-      let newProductName = `${product.productName} copy 1`;
-      if (existingProducts.length > 0) {
-        newProductName = `${product.productName} copy ${
-          existingProducts.length + 1
-        }`;
-      }
-
-      const duplicatedProductData = {
-        productName: newProductName,
-        categoryId: product?.categoryId,
-        productBrand: product?.productBrand,
-        productImage:
-          product.productImage || "https://i.ibb.co/sqPhfrt/notimgpng.png",
-        isTrash: false,
-        productGallery: product?.productGallery,
-        productVideos: [],
-        productSpecification: product?.productSpecification,
-        productDescription: product?.productDescription,
-        productShortDescription: product?.productShortDescription,
-        productStatus: "Draft",
-        seo: {
-          productTitle: `${newProductName} at Best Electronics`,
-          prodDescription:
-            "Best Electronics is the leading provider of high-quality electronics products. We offer a wide range of products including laptops, mobile phones, tablets, cameras, and more.",
-          productTags: product?.seo?.productTags,
-          productNotes: product?.seo?.productNotes,
-        },
-        general: {
-          regularPrice: product?.general?.regularPrice,
-          salePrice: product?.general?.salePrice,
-          taxStatus: product?.general?.taxStatus,
-          taxClass: product?.general?.taxClass,
-        },
-        inventory: {
-          sku: " ",
-          stockManagement: product?.inventory?.stockManagement || false,
-          stockStatus: product?.inventory?.stockStatus || "Out of Stock",
-          soldIndividually: product?.inventory?.soldIndividually || false,
-          inventoryStatus:
-            product?.inventory?.inventoryStatus || "Online & Offline",
-        },
-        shipping: {
-          weight: product?.shipping?.weight || 0,
-          productDimensions: {
-            length: product?.shipping?.productDimensions?.length || 0,
-            width: product?.shipping?.productDimensions?.width || 0,
-            height: product?.shipping?.productDimensions?.height || 0,
-          },
-        },
-        date: new Date(),
-      };
-
-      const response = await fetchApi(
-        "/product/addProduct",
-        "POST",
-        duplicatedProductData
-      );
-
-      if (response) {
-        const newProductId = response?.product?._id;
-        router.push(`/dashboard/products/${newProductId}`);
-      } else {
-        const errorData = await response.json();
-        console.log("Failed to duplicate product:", errorData);
-      }
-    } catch (error) {
-      console.log("Error duplicating product:", error);
-    }
-  };
-
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -387,7 +308,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
     <main>
       <div className="grid grid-cols-1 md:grid-cols-3 justify-between items-center gap-y-3 mt-5 border-b-2 pb-5">
         <div className="flex justify-between md:justify-start items-center  w-full">
-          <h5 className="text-lg md:text-2xl font-bold">All Products</h5>
+          <h5 className="text-lg md:text-2xl font-bold">All Events</h5>
           <button
             onClick={() => setShowButton(!showButton)}
             className="text-sm md:text-lg text-gray-500 block md:hidden"
@@ -588,15 +509,6 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
                                         {item?.title}
                                       </span>
                                     </Link>
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        handleDuplicateProduct(item)
-                                      }
-                                      className="text-xs cursor-pointer text-gray-500 opacity-0 group-hover:opacity-100 group-hover:text-[#f16521] duration-700"
-                                    >
-                                      Duplicate
-                                    </button>
                                   </>
                                 ) : (
                                   <span className="text-wrap">
@@ -614,10 +526,8 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
                             {item?.tickets[0]?.price}
                           </td>
                           <td className="px-6 lg:px-0 py-4 text-sm text-center font-medium text-gray-900 whitespace-nowrap ">
-                       
                             {item?.tickets[0]?.totalQty}
                           </td>
-                  
                         </tr>
                       ))}
                     </tbody>

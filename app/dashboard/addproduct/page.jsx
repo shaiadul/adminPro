@@ -58,6 +58,11 @@ export default function AddProductPage() {
     setTickets(updated);
   };
 
+  const removeTicket = (index) => {
+    const updated = tickets.filter((_, i) => i !== index);
+    setTickets(updated);
+  };
+
   const handleAddProduct = async (e) => {
     e.preventDefault();
 
@@ -138,14 +143,14 @@ export default function AddProductPage() {
 
       <form onSubmit={handleAddProduct}>
         <section className="mt-10 flex justify-between items-center">
-          <AddProductDynamicHead title={"Add New Product"} />
+          <AddProductDynamicHead title={"Add New Event"} />
           <button
             type="submit"
             className={`text-sm text-white bg-black rounded-md px-3 py-2 ${
               categoryId === "" ? "cursor-not-allowed" : "cursor-pointer"
             }`}
           >
-            {isLoading ? "Adding Product..." : "Add Product"}
+            {isLoading ? "Adding Event..." : "Add Event"}
           </button>
         </section>
 
@@ -159,7 +164,7 @@ export default function AddProductPage() {
                     htmlFor="title"
                     className="text-sm font-semibold text-gray-600"
                   >
-                    Product title
+                    Event title
                   </label>
                   <input
                     type="text"
@@ -198,9 +203,13 @@ export default function AddProductPage() {
 
             {/* Tickets Section */}
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
-              <h5 className="text-md font-bold mb-3">Ticket Information</h5>
+              <h5 className="text-md font-bold mb-4">Ticket Information</h5>
+
               {tickets.map((ticket, index) => (
-                <div key={index} className="flex gap-4 mb-3">
+                <div
+                  key={index}
+                  className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 mb-4"
+                >
                   <input
                     type="text"
                     placeholder="Type (e.g., General)"
@@ -208,7 +217,7 @@ export default function AddProductPage() {
                     onChange={(e) =>
                       updateTicket(index, "type", e.target.value)
                     }
-                    className="border p-2 flex-1 focus:outline-none"
+                    className="border p-2 rounded flex-1 focus:outline-none"
                     required
                   />
                   <input
@@ -218,7 +227,7 @@ export default function AddProductPage() {
                     onChange={(e) =>
                       updateTicket(index, "price", e.target.value)
                     }
-                    className="border p-2 flex-1 focus:outline-none"
+                    className="border p-2 rounded flex-1 focus:outline-none"
                     required
                   />
                   <input
@@ -228,23 +237,31 @@ export default function AddProductPage() {
                     onChange={(e) =>
                       updateTicket(index, "totalQty", e.target.value)
                     }
-                    className="border p-2 flex-1 focus:outline-none"
+                    className="border p-2 rounded flex-1 focus:outline-none"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => removeTicket(index)}
+                    className="text-red-500 text-sm font-medium hover:underline"
+                  >
+                    Remove
+                  </button>
                 </div>
               ))}
+
               <button
                 type="button"
                 onClick={addTicket}
-                className="mt-2 text-primary underline"
+                className="mt-2 text-teal-600 font-medium hover:underline"
               >
-                + Add Another Ticket Type
+                Add Another Ticket Type
               </button>
             </div>
 
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
-              <h5 className="text-md font-bold mb-3">Product Description</h5>
-              {/* <AddProductRichText preValue="" /> */}
+              <h5 className="text-md font-bold mb-3">Event Description</h5>
+
               <textarea
                 placeholder="Description"
                 name="description"
@@ -257,7 +274,7 @@ export default function AddProductPage() {
 
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
               <h5 className="text-md font-bold mb-3">Additional Notes</h5>
-              {/* <AddProductShortDesRichText /> */}
+
               <textarea
                 placeholder="Additional Notes"
                 name="additionalNotes"
@@ -309,7 +326,7 @@ export default function AddProductPage() {
             </div>
 
             <div className="p-5 border bg-white rounded-md shadow-md w-full">
-              <h5 className="text-md font-bold mb-3">Product Categories</h5>
+              <h5 className="text-md font-bold mb-3">Event Categories</h5>
 
               <input
                 type="text"

@@ -308,7 +308,7 @@ export default function Sidebar() {
                     </svg>
                   </span>
                   <span className="text-sm group-hover:text-white ml-3">
-                    Products
+                    Events
                   </span>
                 </Link>
                 <ul
@@ -318,121 +318,11 @@ export default function Sidebar() {
                     : "hidden"
                     }`}
                 >
-                  <li>
-                    <Link
-                      href="/dashboard/products/categories"
-                      className={`${pathname == "/dashboard/products/categories" ? "" : ""
-                        }  rounded-md py-1 flex justify-start`}
-                    >
-                      {pathname == "/dashboard/products/categories" ? (
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle cx="9" cy="9" r="9" fill="black" />
-                          <circle cx="9" cy="9" r="6" fill="white" />
-                        </svg>
-                      ) : (
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="9"
-                            cy="9"
-                            r="8.5"
-                            fill="#E5E7EB"
-                            stroke="#D1D5DB"
-                          />
-                        </svg>
-                      )}
-                      <span className="text-sm mx-3">Categories</span>
-                    </Link>
-                  </li>
+                 
                 </ul>
               </li>
 
-              {/* <li>
-                <Link
-                  href="/dashboard/outlets"
-                  className={`flex flex-row items-center duration-700 text-black ${pathname == "/dashboard/outlets" ? "bg-black text-white" : ""
-                    } hover:bg-black rounded-xl my-1 py-0 group`}
-                >
-                  <span className="inline-flex items-center justify-center px-2 py-2 text-lg group">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={`${pathname == "/dashboard/outlets"
-                        ? "hidden"
-                        : "group-hover:hidden duration-700"
-                        }`}
-                    >
-                      <path
-                        d="M2.9668 10.4956V15.4974C2.9668 18.3268 2.9668 19.7415 3.84548 20.6205C4.72416 21.4996 6.13837 21.4996 8.9668 21.4996H14.9668C17.7952 21.4996 19.2094 21.4996 20.0881 20.6205C20.9668 19.7415 20.9668 18.3268 20.9668 15.4974V10.4956"
-                        stroke="black"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M6.9668 17.9932H10.9668"
-                        stroke="black"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M10.1038 8.41799C9.82182 9.43639 8.79628 11.1931 6.84777 11.4477C5.12733 11.6725 3.82246 10.9216 3.48916 10.6076C3.12168 10.353 2.28416 9.53823 2.07906 9.02903C1.87395 8.51983 2.11324 7.41657 2.28416 6.96678L2.96743 4.98839C3.13423 4.49147 3.5247 3.31617 3.92501 2.91864C4.32533 2.52111 5.13581 2.50381 5.4694 2.50381H12.4749C14.2781 2.52929 18.2209 2.48774 19.0003 2.50382C19.7797 2.5199 20.2481 3.17324 20.3848 3.4533C21.5477 6.27012 22 7.88334 22 8.57075C21.8482 9.30407 21.22 10.6868 19.0003 11.295C16.6933 11.9271 15.3854 10.6976 14.9751 10.2257M9.15522 10.2257C9.47997 10.6245 10.4987 11.4274 11.9754 11.4477C13.4522 11.4681 14.7273 10.4378 15.1802 9.92013C15.3084 9.76737 15.5853 9.31419 15.8725 8.41799"
-                        stroke="black"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={`${pathname == "/dashboard/outlets"
-                        ? "block"
-                        : " hidden group-hover:block "
-                        } duration-700`}
-                    >
-                      <path
-                        d="M2.9668 10.4956V15.4974C2.9668 18.3268 2.9668 19.7415 3.84548 20.6205C4.72416 21.4996 6.13837 21.4996 8.9668 21.4996H14.9668C17.7952 21.4996 19.2094 21.4996 20.0881 20.6205C20.9668 19.7415 20.9668 18.3268 20.9668 15.4974V10.4956"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M6.9668 17.9932H10.9668"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M10.1038 8.41799C9.82182 9.43639 8.79628 11.1931 6.84777 11.4477C5.12733 11.6725 3.82246 10.9216 3.48916 10.6076C3.12168 10.353 2.28416 9.53823 2.07906 9.02903C1.87395 8.51983 2.11324 7.41657 2.28416 6.96678L2.96743 4.98839C3.13423 4.49147 3.5247 3.31617 3.92501 2.91864C4.32533 2.52111 5.13581 2.50381 5.4694 2.50381H12.4749C14.2781 2.52929 18.2209 2.48774 19.0003 2.50382C19.7797 2.5199 20.2481 3.17324 20.3848 3.4533C21.5477 6.27012 22 7.88334 22 8.57075C21.8482 9.30407 21.22 10.6868 19.0003 11.295C16.6933 11.9271 15.3854 10.6976 14.9751 10.2257M9.15522 10.2257C9.47997 10.6245 10.4987 11.4274 11.9754 11.4477C13.4522 11.4681 14.7273 10.4378 15.1802 9.92013C15.3084 9.76737 15.5853 9.31419 15.8725 8.41799"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                  <span className="text-sm group-hover:text-white ml-3">
-                    Outlets
-                  </span>
-                </Link>
-              </li> */}
+              
               {/* <li>
                 <Link
                   href="/dashboard/customers"

@@ -36,7 +36,7 @@ export default function ProductsPage() {
         <Skeleton />
       ) : (
         <div>
-          <PageHead pageHead="Products" />
+          <PageHead pageHead="Events" />
           <ProductTable AllProducts={AllProducts} AllOutlets={AllOutlets} />
         </div>
       )}
