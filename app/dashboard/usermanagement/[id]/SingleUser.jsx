@@ -77,8 +77,9 @@ export default function SingleUser({ user }) {
       const res = await fetchApi("/admin/generate-admin-invite", "POST", {
         email: user.email,
       });
+      console.log("admin invite res", res);
 
-      if (res?.success) {
+      if (res) {
         alert("Admin invitation sent successfully.");
       } else {
         alert("Failed to send admin invitation.");
@@ -287,6 +288,7 @@ export default function SingleUser({ user }) {
                         className="border border-gray-300 rounded-md p-2 focus:outline-none "
                       />
                     </div>
+
                     <button
                       type="button"
                       onClick={makeAdmin}
