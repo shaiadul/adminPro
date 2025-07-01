@@ -32,7 +32,7 @@ export default function CouponDynamicHead({ coupon }) {
         </Link>
 
         <h1 className="text-lg md:text-5xl font-semibold ml-5">
-          {coupon?.general?.couponName}
+          {coupon?.code}
         </h1>
       </div>
       <div className="text-sm md:text-lg flex flex-col md:flex-row">
@@ -40,7 +40,7 @@ export default function CouponDynamicHead({ coupon }) {
           Coupon Created at {formatDate(coupon?.createdAt)}
         </p>{" "}
         <span className="hidden md:block mx-5">.</span>{" "}
-        <p className="">Expires {formatDate(coupon?.general?.couponExpiry)}</p>
+        <p className="">Expires {formatDate(coupon?.validTo)}</p>
       </div>
     </div>
   );

@@ -13,8 +13,8 @@ export default function CouponId({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchApi(`/discount/getCouponById/${id}`, "GET");
-        setCoupon(data?.coupon);
+        const data = await fetchApi(`/promo/getPromoById/${id}`, "GET");
+        setCoupon(data?.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
       }

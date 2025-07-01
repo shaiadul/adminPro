@@ -51,7 +51,7 @@ export default function CouponTable({ AllCoupons }) {
   const router = useRouter();
 
   const filteredData = data.filter((item) =>
-    item.general?.couponName?.toLowerCase().includes(searchQuery.toLowerCase())
+    item?.code?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const sortData = (filteredData, sortBy, sortDirection) => {
@@ -121,7 +121,7 @@ export default function CouponTable({ AllCoupons }) {
       let updatedCoupons = [...coupons];
       for (const itemId of selectedItems) {
         const response = await fetchApi(
-          `/discount/deleteCouponById/${itemId}`,
+          `/promo/deletePromo/${itemId}`,
           "DELETE"
         );
         if (response) {
@@ -165,7 +165,7 @@ export default function CouponTable({ AllCoupons }) {
     };
     return date.toLocaleDateString(undefined, options);
   }
-
+ console.log("AllCoupons", data);
   return (
     <section className="w-full my-5">
       <div className="grid grid-cols-1 md:grid-cols-3 justify-between items-center gap-y-3 mt-5 border-b-2 pb-5">
@@ -239,7 +239,7 @@ export default function CouponTable({ AllCoupons }) {
                 </ul>
               </div>
             </div>
-            {(user?.role === "HQ" || user?.role === "AD") && (
+            {(user?.role === "HQ" || user?.role === "SA") && (
               <div className="text-white border border-black bg-black rounded-lg shadow-md">
                 <Link
                   href="/dashboard/coupon/addcoupon"
@@ -285,14 +285,14 @@ export default function CouponTable({ AllCoupons }) {
                       </th>
                       <th
                         scope="col"
-                        onClick={() => handleSort("general.discountType")}
+                        onClick={() => handleSort("discountType")}
                         className="px-3 py-3 text-sm font-medium tracking-wider text-center text-gray-700 uppercase dark:text-gray-400 cursor-pointer text-nowrap"
                       >
                         Coupon Type &#x21d5;
                       </th>
                       <th
                         scope="col"
-                        onClick={() => handleSort("general.couponAmount")}
+                        onClick={() => handleSort("discountValue")}
                         className="px-3 py-3 text-sm font-medium tracking-wider text-center text-gray-700 uppercase dark:text-gray-400 cursor-pointer text-nowrap"
                       >
                         Amount &#x21d5;
@@ -300,15 +300,15 @@ export default function CouponTable({ AllCoupons }) {
                       <th
                         scope="col"
                         onClick={() =>
-                          handleSort("usageLimit.usageLimitPerCoupon")
+                          handleSort("usageLimit")
                         }
                         className="px-3 py-3 text-sm font-medium tracking-wider text-center text-gray-700 uppercase dark:text-gray-400 cursor-pointer text-nowrap"
                       >
-                        limit &#x21d5;
+                        Limit &#x21d5;
                       </th>
                       <th
                         scope="col"
-                        onClick={() => handleSort("general.couponExpiry")}
+                        onClick={() => handleSort("validFrom")}
                         className="px-3 py-3 text-sm font-medium tracking-wider text-center text-gray-700 uppercase dark:text-gray-400 cursor-pointer text-nowrap"
                       >
                         expire date &#x21d5;
@@ -343,7 +343,7 @@ export default function CouponTable({ AllCoupons }) {
                           <div className="flex items-center">
                             <Link href={`/dashboard/coupon/${item._id}`}>
                               <span className="">
-                                {item?.general?.couponName}
+                                {item?.code?.toUpperCase() || "&#8734;"}
                               </span>
                             </Link>
                           </div>
@@ -351,14 +351,14 @@ export default function CouponTable({ AllCoupons }) {
                         <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                           <div className="flex justify-center items-center">
                             <span className="">
-                              {item?.general?.discountType}
+                              {item?.discountType || "&#8734;"}
                             </span>
                           </div>
                         </td>
                         <td className="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
                           <div className="flex justify-center items-center">
                             <span className="">
-                              {item?.general?.couponAmount}
+                              {item?.maxDiscountAmount || "&#8734;" }
                             </span>
                           </div>
                         </td>
@@ -369,13 +369,13 @@ export default function CouponTable({ AllCoupons }) {
                                 "&#8734;"}
                             </span> */}
                             <span>
-                              {item?.usageLimit?.usageLimitPerUser || 0}
+                              {item?.usageLimit || 0}
                             </span>
                             /
                             <span>
                               {/* {item?.usageLimit?.usageLimitPerCoupon || '\u221E'} */}
-                              {item?.usageLimit?.usageLimitPerCoupon ? (
-                                item.usageLimit.usageLimitPerCoupon
+                              {item?.usedCount ? (
+                                item.usedCount
                               ) : (
                                 // <span className="text-2xl">∞</span>
                                 <span className="text-xl">&#8734;</span>
@@ -386,7 +386,7 @@ export default function CouponTable({ AllCoupons }) {
                         <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                           <div className="flex justify-center items-center">
                             <span className="">
-                              {formatDate(item?.general?.couponExpiry)}
+                              {formatDate(item?.validFrom)}
                             </span>
                           </div>
                         </td>

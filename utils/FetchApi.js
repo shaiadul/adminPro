@@ -20,7 +20,7 @@ export const fetchApi = async (path, method, data = null) => {
 
     switch (method) {
       case "GET":
-        response = await axios.get(url);
+        response = await axios.get(url, config);
         break;
       case "POST":
         response = await axios.post(url, data, config);

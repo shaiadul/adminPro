@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const initialState = {
   coupons: [],
@@ -10,11 +11,11 @@ export const fetchCoupons = createAsyncThunk(
   "coupons/fetchCoupons",
   async () => {
     const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
-    const path = "/discount/getAllCoupon";
+    const path = "/promo/getAllPromo";
     const url = `${API_ENDPOINT}${path}`;
 
-    const user = localStorage.getItem("user");
-    const token = user ? JSON.parse(user).accessToken : "";
+    // const user = localStorage.getItem("user");
+    const token = Cookies.get("token");
 
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -27,10 +28,13 @@ export const fetchCoupons = createAsyncThunk(
 
     try {
       const response = await fetch(url, requestOptions);
-      if (!response.ok) {
+      const data = await response.json();
+      // console.log("response from couponSlice", data.data);
+
+      if (!data) {
         throw new Error(`API request failed with status ${response.status}`);
       }
-      return await response.json();
+      return await data.data;
     } catch (error) {
       console.error("Error fetching coupons:", error);
       throw error;

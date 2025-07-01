@@ -61,7 +61,7 @@ export default function Sidebar() {
               />
             </Link>
           </div>
-          {(user.role === "HQ" || user.role === "AD") ? (
+          {(user.role === "HQ" || user.role === "SA") ? (
             <ul className="flex flex-col py-2">
               <li>
                 <Link
@@ -386,7 +386,7 @@ export default function Sidebar() {
                 </Link>
               </li> */}
 
-              <li>
+              {/* <li>
                 <Link
                   href="/dashboard/reporting"
                   className={`flex flex-row items-center duration-700 text-black ${pathname == "/dashboard/reporting"
@@ -467,7 +467,7 @@ export default function Sidebar() {
                     Reporting
                   </span>
                 </Link>
-              </li>
+              </li> */}
 
               <li>
                 <Link
@@ -1111,7 +1111,7 @@ export default function Sidebar() {
                     </svg>
                   </span>
                   <span className="text-sm group-hover:text-white ml-3">
-                    Products
+                    Event
                   </span>
                 </Link>
               </li>

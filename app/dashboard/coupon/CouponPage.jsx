@@ -14,7 +14,7 @@ export default function CouponPage() {
     dispatch(fetchCoupons());
   }, [dispatch]);
 
-  const AllCoupons = coupon?.coupons;
+  const AllCoupons = coupon;
   const data = AllCoupons || [];
 
   return (
