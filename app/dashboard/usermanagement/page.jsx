@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 export default function UserManagementPage() {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state?.users?.users?.users);
+  const users = useSelector((state) => state?.users?.users);
 
   useEffect(() => {
     dispatch(fetchUsers());

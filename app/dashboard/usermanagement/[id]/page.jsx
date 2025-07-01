@@ -13,8 +13,8 @@ export default function Page({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchApi(`/auth/users/${id}`, "GET");
-        setUser(data?.user);
+        const data = await fetchApi(`/user/getUserById/${id}`, "GET");
+        setUser(data?.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
       }

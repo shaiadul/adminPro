@@ -18,7 +18,7 @@ export default function UserDynamicHead({ user }) {
         </Link>
 
         <h1 className="text-lg md:text-5xl font-semibold ml-5">
-          {user?.firstName + " " + user?.lastName}
+          {user?.name}
         </h1>
       </div>
       <div className="text-lg"></div>

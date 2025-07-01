@@ -24,8 +24,6 @@ export default function UsersTable({ AllUsers }) {
   const [user, setUser] = useState([]);
   const dispatch = useDispatch();
 
-
-
   let data = users;
 
   useEffect(() => {
@@ -37,23 +35,17 @@ export default function UsersTable({ AllUsers }) {
     setUsers(AllUsers);
   }, [AllUsers]);
 
-
-
   console.log(user);
 
-
   const router = useRouter();
-  const titleData = ["All", "HQ", "AD", "BA", "MGR"];
+  const titleData = ["All", "SA", "AD", "User",];
   // const userInfo = useSelector((state) => state?.user);
   useEffect(() => {
     const fetchSingleUser = async () => {
-      if (!(user?.userId)) return;
+      if (!user?.userId) return;
 
       try {
-        const res = await fetchApi(
-          `/auth/users/${user?.userId}`,
-          "GET"
-        );
+        const res = await fetchApi(`/auth/users/${user?.userId}`, "GET");
         const data = res?.user;
         setUser(data);
       } catch (error) {
@@ -267,15 +259,13 @@ export default function UsersTable({ AllUsers }) {
             onClick={() => handleTitleButtonClick(title)}
             className="bg-gray-100 text-gray-500 px-10 py-2 text-md rounded-md hover:bg-black hover:text-white duration-700 shadow-md w-full md:w-auto"
           >
-            {title === "HQ"
-              ? "Head Office"
+            {title === "SA"
+              ? "Super Admin"
               : title === "AD"
-                ? "Admin"
-                : title === "BA"
-                  ? "Branch Admin"
-                  : title === "MGR"
-                    ? "Manager"
-                    : title}
+              ? "Admin"
+              : title === "user"
+              ? "customer"
+              : title}
           </button>
         ))}
       </div>
@@ -332,7 +322,7 @@ export default function UsersTable({ AllUsers }) {
                       </th>
                       <th
                         scope="col"
-                        onClick={() => handleSort("phoneNumber")}
+                        onClick={() => handleSort("phone")}
                         className="px-3 py-3 text-sm font-medium tracking-wider text-center text-gray-700 uppercase dark:text-gray-400 cursor-pointer text-nowrap"
                       >
                         Phone &#x21d5;
@@ -340,158 +330,62 @@ export default function UsersTable({ AllUsers }) {
                     </tr>
                   </thead>
                   <tbody className="bg-white text-black">
-                    {/* {currentData?.map((item) => (
-                      <tr
-                        key={item.id}
-                        className={`${item.id % 2 !== 0 ? "" : "bg-gray-100"
-                          } hover:bg-gray-100 duration-700`}
-                      >
-                        <td scope="col" className="p-4">
-                          <div className="flex items-center">
-                            <input
-                              id={`checkbox_${item._id}`}
-                              type="checkbox"
-                              className="w-4 h-4  bg-gray-100 rounded border-gray-300"
-                              checked={selectedItems.includes(item._id)}
-                              onChange={() => handleSelectItem(item._id)}
-                            />
-                            <label
-                              htmlFor={`checkbox_${item._id}`}
-                              className="sr-only"
-                            >
-                              checkbox
-                            </label>
-                          </div>
-                        </td>
-                        <td className="py-4 text-sm font-medium text-gray-500 whitespace-nowrap underline underline-offset-2 cursor-pointer">
-                          <Link href={`/dashboard/usermanagement/${item?._id}`}>
-                            {item?.userName}
-                          </Link>
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                          <div className="flex justify-start items-center">
-                            <Image
-                              width={30}
-                              height={30}
-                              className="w-7 h-7 rounded-md"
-                              src={item?.profilePicture || ""}
-                              alt=""
-                            />
-                            <span className="ml-2">
-                              {item?.firstName + item?.lastName}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap ">
-                          {item?.role}
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                          {item?.email}
-                        </td>
-                        <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                          {item?.phoneNumber}
-                        </td>
-                      </tr>
-                    ))} */}
-                    {user?.role === "HQ" || user?.role === "AD" ? (
-                      currentData?.map((item) => (
-                        <tr
-                          key={item.id}
-                          className={`${item.id % 2 !== 0 ? "" : "bg-gray-100"} hover:bg-gray-100 duration-700`}
-                        >
-                          <td scope="col" className="p-4">
-                            <div className="flex items-center">
-                              <input
-                                id={`checkbox_${item._id}`}
-                                type="checkbox"
-                                className="w-4 h-4 bg-gray-100 rounded border-gray-300"
-                                checked={selectedItems.includes(item._id)}
-                                onChange={() => handleSelectItem(item._id)}
-                              />
-                              <label htmlFor={`checkbox_${item._id}`} className="sr-only">
-                                checkbox
-                              </label>
-                            </div>
-                          </td>
-                          <td className="py-4 text-sm font-medium text-gray-500 whitespace-nowrap underline underline-offset-2 cursor-pointer">
-                            <Link href={`/dashboard/usermanagement/${item?._id}`}>
-                              {item?.userName}
-                            </Link>
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            <div className="flex justify-start items-center">
-                              <Image
+                    {user?.role === "HQ" || user?.role === "SA"
+                      ? currentData?.map((item) => (
+                          <tr
+                            key={item.id}
+                            className={`${
+                              item.id % 2 !== 0 ? "" : "bg-gray-100"
+                            } hover:bg-gray-100 duration-700`}
+                          >
+                            <td scope="col" className="p-4">
+                              <div className="flex items-center">
+                                <input
+                                  id={`checkbox_${item._id}`}
+                                  type="checkbox"
+                                  className="w-4 h-4 bg-gray-100 rounded border-gray-300"
+                                  checked={selectedItems.includes(item._id)}
+                                  onChange={() => handleSelectItem(item._id)}
+                                />
+                                <label
+                                  htmlFor={`checkbox_${item._id}`}
+                                  className="sr-only"
+                                >
+                                  checkbox
+                                </label>
+                              </div>
+                            </td>
+                            <td className="py-4 text-sm font-medium text-gray-500 whitespace-nowrap underline underline-offset-2 cursor-pointer">
+                              <Link
+                                href={`/dashboard/usermanagement/${item?._id}`}
+                              >
+                                {item?.username}
+                              </Link>
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                              <div className="flex justify-start items-center">
+                                {/* <Image
                                 width={30}
                                 height={30}
                                 className="w-7 h-7 rounded-md"
                                 src={item?.profilePicture || noPicture}
                                 alt=""
-                              />
-                              <span className="ml-2">{item?.firstName + item?.lastName}</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
-                            {item?.role}
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            {item?.email}
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            {item?.phoneNumber}
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      user && (
-                        <tr
-                          key={user?.userId}
-                          className="bg-gray-100 hover:bg-gray-100 duration-700"
-                        >
-                          <td scope="col" className="p-4">
-                            <div className="flex items-center">
-                              <input
-                                id={`checkbox_${user?.userId}`}
-                                type="checkbox"
-                                className="w-4 h-4 bg-gray-100 rounded border-gray-300"
-                              // checked={selectedItems.includes(user?.userId)}
-                              // onChange={() => handleSelectItem(user?.userId)}
-                              />
-                              <label htmlFor={`checkbox_${user?.userId}`} className="sr-only">
-                                checkbox
-                              </label>
-                            </div>
-                          </td>
-                          <td className="py-4 text-sm font-medium text-gray-500 whitespace-nowrap  ">
-                            {/* <Link href={`/dashboard/usermanagement/${user?.userId}`}> */}
-                            {user?.userName}
-                            {/* {user?.userId} */}
-                            {/* </Link> */}
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            <div className="flex justify-start items-center">
-                              <Image
-                                width={30}
-                                height={30}
-                                className="w-7 h-7 rounded-md"
-                                src={user?.profilePicture || ""}
-                                alt=""
-                              />
-                              <span className="ml-2">{user?.firstName + user?.lastName}</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
-                            {user?.role}
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            {user?.email}
-                          </td>
-                          <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                            {user?.phoneNumber}
-                          </td>
-                        </tr>
-                      )
-                    )}
-
+                              /> */}
+                                <span className="ml-2">{item?.name}</span>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-500 whitespace-nowrap">
+                              {item?.role}
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+                              {item?.email}
+                            </td>
+                            <td className="px-6 py-4 text-sm  font-medium text-gray-900 whitespace-nowrap">
+                              {item?.phone}
+                            </td>
+                          </tr>
+                        ))
+                      : null}
                   </tbody>
                 </table>
               </div>
