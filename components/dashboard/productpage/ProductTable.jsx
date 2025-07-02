@@ -347,7 +347,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
               placeholder="Search something.."
             />
           </div>
-          {(user?.role === "HQ" || user?.role === "AD") && (
+          {(user?.role === "SA" || user?.role === "AD") && (
             <div className="flex justify-between items-center gap-3 mr-auto md:mr-0 relative">
               <div className=" bg-[#F9FAFB] rounded-lg shadow-md ">
                 <button
@@ -385,7 +385,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
               </div>
             </div>
           )}
-          {(user?.role === "HQ" || user?.role === "AD") && (
+          {(user?.role === "SA" || user?.role === "AD") && (
             <div className="ml-auto md:ml-0 text-white border border-black bg-black rounded-lg shadow-md">
               <Link
                 href="/dashboard/addproduct"
