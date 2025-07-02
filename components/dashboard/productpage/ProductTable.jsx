@@ -447,7 +447,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
                           onClick={() => handleSort("title")}
                           className="py-3 text-[12px] lg:text-sm font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400 cursor-pointer text-nowrap"
                         >
-                          Product Title &#x21d5;
+                          Event Title &#x21d5;
                         </th>
                         <th
                           scope="col"
@@ -512,7 +512,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
                                   </>
                                 ) : (
                                   <span className="text-wrap">
-                                    {item?.productName}
+                                    {item?.title}
                                   </span>
                                 )}
                               </div>
