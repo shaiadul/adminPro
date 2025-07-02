@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
-  const path = "/user/getAllUsers";
+  const path = "/admin/get-all-admins";
   const url = `${API_ENDPOINT}${path}`;
 
   const token = Cookies.get("token");

@@ -38,7 +38,7 @@ export default function UsersTable({ AllUsers }) {
   console.log(user);
 
   const router = useRouter();
-  const titleData = ["All", "SA", "AD", "User"];
+  const titleData = ["All", "SA", "AD"];
   // const userInfo = useSelector((state) => state?.user);
   useEffect(() => {
     const fetchSingleUser = async () => {
@@ -123,7 +123,7 @@ export default function UsersTable({ AllUsers }) {
     try {
       let updateUsers = [...users];
       for (const itemId of selectedItems) {
-        const response = await fetchApi(`/auth/users/${itemId}`, "DELETE");
+        const response = await fetchApi(`/admin/delete-admin/${itemId}`, "DELETE");
         if (response) {
           updateUsers = updateUsers.filter((item) => item._id !== itemId);
         } else {
