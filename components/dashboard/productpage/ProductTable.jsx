@@ -500,7 +500,7 @@ export default function ProductTable({ AllProducts, AllOutlets }) {
                           <td className="px-0 py-4 text-sm font-medium text-gray-900 whitespace-nowrap group">
                             <div className="flex justify-start items-center">
                               <div className="flex flex-col justify-center items-start ml-2 ">
-                                {user?.role === "HQ" || user?.role === "AD" ? (
+                                {user?.role === "SA" || user?.role === "AD" ? (
                                   <>
                                     <Link
                                       href={`/dashboard/products/${item._id}`}
