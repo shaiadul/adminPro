@@ -38,7 +38,7 @@ export default function UsersTable({ AllUsers }) {
   console.log(user);
 
   const router = useRouter();
-  const titleData = ["All", "SA", "AD", "User",];
+  const titleData = ["All", "SA", "AD", "User"];
   // const userInfo = useSelector((state) => state?.user);
   useEffect(() => {
     const fetchSingleUser = async () => {
@@ -232,7 +232,7 @@ export default function UsersTable({ AllUsers }) {
                 </ul>
               </div>
             </div>
-            {(user?.role === "HQ" || user?.role === "AD") && (
+            {user?.role === "SA" && (
               <div className="text-white border border-black bg-black rounded-lg shadow-md">
                 <Link
                   href="/dashboard/usermanagement/adduser"
@@ -330,7 +330,7 @@ export default function UsersTable({ AllUsers }) {
                     </tr>
                   </thead>
                   <tbody className="bg-white text-black">
-                    {user?.role === "HQ" || user?.role === "SA"
+                    {user?.role === "SA"
                       ? currentData?.map((item) => (
                           <tr
                             key={item.id}
